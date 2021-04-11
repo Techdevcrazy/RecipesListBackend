@@ -12,6 +12,6 @@ Things you may want to cover:
 6.1.3
 
 * API endpoints
-  /search
-  /recipes
-  /recipes/id
+  * /recipes
+  * /recipes/id
+  * /search
