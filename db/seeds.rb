@@ -78,8 +78,7 @@ recipes = [
       "name": "Blair Bunny",
       "url": "http://allrecipes.com/cook/10179/profile.aspx"
     },
-    "source_url": "http://allrecipes.com/Recipe/Banana-Oatmeal-Cookie/Detail.aspx",
-    "author_id": 1
+    "source_url": "http://allrecipes.com/Recipe/Banana-Oatmeal-Cookie/Detail.aspx"
   },
   {
     "title": "Basil and Pesto Hummus",
@@ -106,8 +105,7 @@ recipes = [
       "name": "Fantastic Dan",
       "url": "http://allrecipes.com/cook/10167621/profile.aspx"
     },
-    "source_url": "http://allrecipes.com/Recipe/Basil-and-Pesto-Hummus/Detail.aspx",
-    "author_id": 2
+    "source_url": "http://allrecipes.com/Recipe/Basil-and-Pesto-Hummus/Detail.aspx"
   },
   {
     "title": "Black Bean and Rice Enchiladas",
@@ -144,8 +142,7 @@ recipes = [
       "name": "Diana Manzella-Miller",
       "url": "http://allrecipes.com/cook/13191855/profile.aspx"
     },
-    "source_url": "http://allrecipes.com/Recipe/Black-Bean-and-Rice-Enchiladas-2",
-    "author_id": 3
+    "source_url": "http://allrecipes.com/Recipe/Black-Bean-and-Rice-Enchiladas-2"
   },
   {
     "title": "Divine Hard-Boiled Eggs",
@@ -167,8 +164,7 @@ recipes = [
       "name": "Rocky Road",
       "url": "http://allrecipes.com/cook/13810306/profile.aspx"
     },
-    "source_url": "http://allrecipes.com/recipe/divine-hard-boiled-eggs/detail.aspx",
-    "author_id": 4
+    "source_url": "http://allrecipes.com/recipe/divine-hard-boiled-eggs/detail.aspx"
   },
   {
     "title": "Four Cheese Margherita Pizza",
@@ -199,8 +195,7 @@ recipes = [
       "name": "Michelle",
       "url": "http://allrecipes.com/cook/18668259/profile.aspx"
     },
-    "source_url": "http://allrecipes.com/recipe/four-cheese-margherita-pizza",
-    "author_id": 5
+    "source_url": "http://allrecipes.com/recipe/four-cheese-margherita-pizza"
   },
   {
     "title": "Homemade Black Bean Veggie Burgers",
@@ -232,8 +227,7 @@ recipes = [
       "name": "Lauren Mu",
       "url": "http://allrecipes.com/cook/1445297/profile.aspx"
     },
-    "source_url": "http://allrecipes.com/Recipe/Homemade-Black-Bean-Veggie-Burgers/Detail.aspx",
-    "author_id": 6
+    "source_url": "http://allrecipes.com/Recipe/Homemade-Black-Bean-Veggie-Burgers/Detail.aspx"
   },
   {
     "title": "Homemade Chicken Enchiladas",
@@ -270,8 +264,7 @@ recipes = [
       "name": "Mary Kate",
       "url": "http://allrecipes.com/cook/14977239/profile.aspx"
     },
-    "source_url": "http://allrecipes.com/Recipe/Homemade-Chicken-Enchiladas/Detail.aspx",
-    "author_id": 7
+    "source_url": "http://allrecipes.com/Recipe/Homemade-Chicken-Enchiladas/Detail.aspx"
   },
   {
     "title": "Marinated Grilled Shrimp",
@@ -300,8 +293,7 @@ recipes = [
       "name": "Blondie Perez",
       "url": "http://allrecipes.com/cook/1804621/profile.aspx"
     },
-    "source_url": "http://allrecipes.com/recipe/marinated-grilled-shrimp",
-    "author_id": 8
+    "source_url": "http://allrecipes.com/recipe/marinated-grilled-shrimp"
   },
   {
     "title": "Vegetable Fried Rice",
@@ -333,8 +325,7 @@ recipes = [
       "name": "Dakota Kelly",
       "url": "http://allrecipes.com/cook/1223369/profile.aspx"
     },
-    "source_url": "http://allrecipes.com/Recipe/Vegetable-Fried-Rice/Detail.aspx",
-    "author_id": 9
+    "source_url": "http://allrecipes.com/Recipe/Vegetable-Fried-Rice/Detail.aspx"
   },
   {
     "title": "Vegetarian Korma",
@@ -372,12 +363,15 @@ recipes = [
       "name": "Yakuta",
       "url": "http://allrecipes.com/cook/116722/profile.aspx"
     },
-    "source_url": "http://allrecipes.com/Recipe/Vegetarian-Korma/Detail.aspx",
-    "author_id": 10
+    "source_url": "http://allrecipes.com/Recipe/Vegetarian-Korma/Detail.aspx"
   }
 ]
 
-recipes.each do |recipe|
+authors.each do |author|
+  Author.find_or_create_by(name: author[:name], url: author[:url])
+end
+
+recipes.each do |recipe, i|
   Recipe.find_or_create_by(
     title: recipe[:title],
     description: recipe[:description],
@@ -388,10 +382,7 @@ recipes.each do |recipe|
     servings: recipe[:servings],
     tags: recipe[:tags],
     source_url: recipe[:source_url],
-    author_id: recipe[:author_id]
+    author_id: i
   )
 end
 
-authors.each do |author|
-  Author.find_or_create_by(name: author[:name], url: author[:url])
-end
