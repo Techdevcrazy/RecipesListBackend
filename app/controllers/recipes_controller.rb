@@ -29,9 +29,8 @@ class RecipesController < ApplicationController
   end
 
   def search
-    keyword = params[:keyword]
-
-    if keyword.present?
+    if search_params.present?
+      keyword = search_params[:keyword]
       sql = <<-SQL
         SELECT
           id,
@@ -54,5 +53,24 @@ class RecipesController < ApplicationController
     results = ActiveRecord::Base.connection.query(sql)
     indexes = results.map { |r| {id: r[0], title: r[1]} }
     render json: indexes
+  end
+
+  def update
+    recipe = Recipe.find(update_params.id)
+    if recipe.nil?
+      render json: { message: "Not found" }, status: :not_found
+    else
+      recipe.update(update_params.servings)
+      render json: { message: "Successfully updated servings" }, status: :ok
+    end
+  end
+
+  private
+  def update_params
+    params.permit(:id, :servings)
+  end
+
+  def search_params
+    params.permit(:keyword)
   end
 end
