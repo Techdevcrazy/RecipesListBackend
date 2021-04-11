@@ -1,4 +1,6 @@
 class RecipesController < ApplicationController
+  protect_from_forgery with: :null_session
+
   def index
     begin
       a = Recipe.find params[:id]
@@ -56,12 +58,12 @@ class RecipesController < ApplicationController
   end
 
   def update
-    recipe = Recipe.find(update_params[:id])
-    if recipe.nil?
-      render json: { message: "Not found" }, status: :not_found
-    else
-      recipe.update(update_params[:servings])
+    begin
+      recipe = Recipe.find(update_params[:id])
+      recipe.update(servings: update_params[:servings])
       render json: { message: "Successfully updated servings" }, status: :ok
+    rescue
+      render json: { message: "Could not update recipe" }, status: :not_found
     end
   end
 
