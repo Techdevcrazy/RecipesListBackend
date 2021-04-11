@@ -18,6 +18,10 @@ module ListOfTestRecipes
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+    config.action_dispatch.default_headers.merge!(
+      'Referrer-Policy' => 'no-referrer'
+    )
+
     config.middleware.insert_before 0, Rack::Cors do
       allow do
         origins '*'
