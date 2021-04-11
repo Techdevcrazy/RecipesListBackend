@@ -56,11 +56,11 @@ class RecipesController < ApplicationController
   end
 
   def update
-    recipe = Recipe.find(update_params.id)
+    recipe = Recipe.find(update_params[:id])
     if recipe.nil?
       render json: { message: "Not found" }, status: :not_found
     else
-      recipe.update(update_params.servings)
+      recipe.update(update_params[:servings])
       render json: { message: "Successfully updated servings" }, status: :ok
     end
   end
