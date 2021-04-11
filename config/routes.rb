@@ -3,4 +3,5 @@ Rails.application.routes.draw do
 
   get 'recipes/:id', to: 'recipes#index'
   get 'recipes', to: 'recipes#list'
+  get 'search', to: 'recipes#search'
 end
